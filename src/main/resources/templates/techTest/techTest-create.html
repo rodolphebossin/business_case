@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<div id="global" class="container">
+		<div class="row justify-content-end g-3 align-items-center py-2">
+			<div class="col-auto">
+				<a class="btn btn-light" th:href="@{/admins/welcome}">Retour au menu</a> 
+				<a class="btn btn-light" th:href="@{/logout}">Déconnexion</a> 
+			</div>
+		</div>
+	</div>
+	
+		<h1>Créez votre nouveau test</h1>
+		
+
+	<form th:object="${test}" method="post">
+		<div class="mb-3">
+			<label for="nom" class="form-label">Nom du test</label> 
+			<input type="text" class="form-control" th:field="*{nom}"/>
+			<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"> Erreur sur le nom </span>
+		</div>
+		<div class="mb-3">
+			<label for="duree" class="form-label">Durée du test</label> 
+			<input type="number" class="form-control" th:field="*{duree}"/>
+			<span th:if="${#fields.hasErrors('duree')}" th:errors="*{duree}"> Erreur sur la durée </span>
+		</div>
+		<input type="hidden" th:name="${_csrf.parameterName}"
+			th:value="${_csrf.token}" />
+		<button type="submit" class="btn btn-primary">Enregistrer</button>
+	</form>
+</body>
+</html>

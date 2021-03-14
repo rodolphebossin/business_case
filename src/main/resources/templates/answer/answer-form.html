@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+</head>
+<body>
+
+<h1 th:if="${answer.id == null}" th:utext="'Ajouter une réponse'"></h1>
+<h1 th:if="${answer.id != null}" th:utext="'Editer la réponse' + ${answer.id}"></h1>
+
+<a th:href="@{/admins/answers/{id}(id=${question.id})}">Retour à la liste des réponses</a>
+
+	<form th:object="${answer}" method="post" enctype="multipart/form-data">
+		<div class="mb-3">
+			<label for="text" class="form-label">Libellé de la réponse</label> 
+			<textarea  class="form-control" id="text" th:field="*{text}"></textarea>
+			<span th:if="${#fields.hasErrors('text')}" th:errors="*{text}"> Erreur sur le texte </span>
+		</div>
+		<div class="mb-3">
+		  	<label for="isCorrectAnswer">Est ce une réponse juste ?</label>
+  			<input type="radio"   name="isCorrectAnswer" th:field="*{isCorrectAnswer}" th:checked="${answer.isCorrectAnswer != null && answer.isCorrectAnswer}" value="true" >oui
+  			<input type="radio"   name="isCorrectAnswer" th:field="*{isCorrectAnswer}" th:checked="${answer.isCorrectAnswer != null && !answer.isCorrectAnswer}" value="false" >non
+		</div> 
+		<div class="mb-3">
+			<h5>Media : </h5>
+			<img th:if="${media != null && media.mediaType == 'image'}" th:src="@{${'/uploads/' + media.fileName}}" />
+			<video th:if="${media != null && media.mediaType == 'video'}" th:src="@{${'/uploads/' + media.fileName}}" width="200px" height="200px" controls></video> 
+		</div>
+		<div class="mb-3">
+			<label for="file" class="form-label">Media à uploader</label>
+			<input type="file" name="file" accept="image/*, video/*"/>
+		</div>
+		<input type="hidden"
+				th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}" />
+		<button type="submit" class="btn btn-primary">Enregistrer</button>
+	</form>
+
+</body>
+</html>

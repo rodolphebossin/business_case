@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+</head>
+<header>
+
+</header>
+<body>
+
+	<div id="global" class="container">
+		<div class="row justify-content-end g-3 align-items-center py-2">
+			<div class="col-auto">
+				<a class="btn btn-light" th:href="@{/admins/}">Gérer les administrateurs</a> 
+				<a class="btn btn-light" th:href="@{/admins/chefsdeprojet/}">Gérer les chefs de projet</a>
+				<a class="btn btn-light" th:href="@{/admins/questions/}">Gérer les questions</a>
+				<a class="btn btn-light" th:href="@{/admins/technicalTests/}">Gérer les tests techniques</a>
+				<a class="btn btn-light" th:href="@{/logout}">Déconnexion</a> 
+			</div>
+		</div>
+	</div>
+	
+		<h1 th:utext="'Rebonjour ' + ${admin.prenom} + ' ' + ${admin.nom}"></h1>
+	
+</body>
+</html>
+	

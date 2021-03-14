@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+</head>
+<body>
+	<h1>Liste des chefs de projet</h1>
+
+	<div id="global" class="container">
+		<div class="row justify-content-end g-3 align-items-center py-2">
+			<div class="col-auto">
+				<a class="btn btn-light" th:href="@{/admins/welcome}">Retour au menu</a> 
+				<a class="btn btn-light" th:href="@{/logout}">Déconnexion</a> 
+				<a class="btn btn-light" th:href="@{/admins/chefsdeprojet/add}">Ajouter un chef de projet</a>
+			</div>
+		</div>
+	</div>
+	
+
+	<table class="table table-striped table-hover table-sm">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Nom</th>
+				<th scope="col">Prénom</th>
+				<th scope="col">Email</th>
+				<th scope="col">Username</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="chefDeProjet : ${chefsDeProjet}">
+				<th scope="row" th:utext="${chefDeProjet.id}"></th>
+				<td th:utext="${chefDeProjet.nom}"></td>
+				<td th:utext="${chefDeProjet.prenom}"></td>
+				<td th:utext="${chefDeProjet.email}"></td>
+				<td th:utext="${chefDeProjet.username}"></td>
+				<td>
+					<a th:href="@{/chefsdeprojet/edit/{id}(id=${chefDeProjet.id})}">Modifier</a>
+					<a th:href="@{/chefsdeprojet/delete/{id}(id=${chefDeProjet.id})}">Supprimer</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
+

@@ -1,0 +1,33 @@
+
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+	
+	<a th:href="@{/candidats/}">Retour à la liste !</a>
+	
+	<h1>Détail du candidat</h1>
+	
+	<div class="card">
+	<div class="card-header" th:utext="${candidat.prenom} + ' ' + ${candidat.nom}"></div>
+	<div class="card-body">
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item" th:utext="${candidat.nom}"></li>
+			<li class="list-group-item" th:utext="${candidat.prenom}"></li>
+			<li class="list-group-item" th:utext="${candidat.email}"></li>
+			<li class="list-group-item" th:utext="${candidat.username}"></li>
+			<li class="list-group-item" th:utext="${candidat.adresse}"></li>
+			<li class="list-group-item" th:utext="${candidat.codePostal}"></li>
+			<li class="list-group-item" th:utext="${candidat.ville}"></li>
+			<li class="list-group-item" th:utext="${#dates.day(candidat.dateBirth)} + '-' + ${#dates.month(candidat.dateBirth)} + '-' + ${#dates.year(candidat.dateBirth)}"></li>
+			<li class="list-group-item" th:utext="${candidat.identifiantPe}"></li>
+			<li class="list-group-item" th:utext="${candidat.password}"></li>
+		</ul>
+	</div>
+</div>
+
+</body>
+</html>

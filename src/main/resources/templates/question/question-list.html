@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+</head>
+<body>
+	<h1>Liste des questions</h1>
+
+	<div id="global" class="container">
+		<div class="row justify-content-end g-3 align-items-center py-2">
+			<div class="col-auto">
+				<a class="btn btn-light" th:href="@{/admins/welcome}">Retour au menu</a> 
+				<a class="btn btn-light" th:href="@{/logout}">Déconnexion</a> 
+				<a class="btn btn-light" th:href="@{/admins/questions/add}">Ajouter une question</a>
+				<a class="btn btn-light" th:href="@{/admins/domains/add}">Ajouter un domaine</a>
+			</div>
+		</div>
+	</div>
+
+	<table class="table table-striped table-hover table-sm"  th:if="${questions != null && !questions.isEmpty()}">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">
+					<a th:href="@{'/admins/questions/page/' + ${currentPage} + '?sortField=questionDomain&sortDir=' + ${reverseSortDir}}"> Domaine</a>
+				</th>
+				<th scope="col">
+					<a th:href="@{'/admins/questions/page/' + ${currentPage} + '?sortField=level&sortDir=' + ${reverseSortDir}}"> Niveau</a>
+				</th>
+				<th scope="col">
+					<a th:href="@{'/admins/questions/page/' + ${currentPage} + '?sortField=text&sortDir=' + ${reverseSortDir}}"> Libellé</a>
+				</th>
+				<th scope="col">
+					<a th:href="@{'/admins/questions/page/' + ${currentPage} + '?sortField=media&sortDir=' + ${reverseSortDir}}"> Media associé ?</a>
+				</th>
+				<th scope="col">
+					<a th:href="@{'/admins/questions/page/' + ${currentPage} + '?sortField=isEliminatory&sortDir=' + ${reverseSortDir}}"> Eliminatoire ?</a>
+				</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="question : ${questions}">
+				<th scope="row" th:utext="${question.id}"></th>
+				<td th:utext="${question.questionDomain.domain}"></td>
+				<td th:utext="${question.level}"></td>
+				<td th:utext="${question.text}"></td>
+				<td th:if="${question.media == null}" th:utext="Non"></td>
+				<td th:if="${question.media != null}" th:utext="Oui"></td>
+				<td th:if="${question.isEliminatory == true}" th:utext="Oui"></td>
+				<td th:if="${question.isEliminatory != true}" th:utext="Non"></td>
+				<td>
+					<a th:href="@{/admins/questions/{id}(id=${question.id})}">Détail</a>
+					<a th:href="@{/admins/questions/edit/{id}(id=${question.id})}">Modifier</a>
+					<a th:href="@{/admins/questions/delete/{id}(id=${question.id})}">Supprimer</a>
+					<a th:href="@{/admins/answers/{id}(id=${question.id})}">Gérer les réponses associées</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div th:if="${nbTotalPages > 1}">
+		<div class="row col-sm-10">
+			<div class="col-sm-2">Total Rows: [[${totalItems}]]</div>
+			<div class="col-sm-1">
+				<span th:each="i: ${#numbers.sequence(1, nbTotalPages)}"> 
+				<a th:if="${currentPage != i}" th:href="@{'/questions/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+				<span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp; </span>
+			</div>
+			<div class="col-sm-1">
+				<a th:if="${currentPage < nbTotalPages}" th:href="@{'/questions/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+            	<span th:unless="${currentPage < nbTotalPages}">Next</span>
+			</div>
+
+			<div class="col-sm-1">
+				<a th:if="${currentPage < nbTotalPages}" th:href="@{'/questions/page/' + ${nbTotalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+           		<span th:unless="${currentPage < nbTotalPages}">Last</span>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

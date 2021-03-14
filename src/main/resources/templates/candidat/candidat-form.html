@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+</head>
+<body>
+
+<h1 th:if="${candidat.id == null}" th:utext="'Ajouter un candidat'"></h1>
+<h1 th:if="${candidat.id != null}" th:utext="'Editer le candidat ' + ${candidat.nom}"></h1>
+
+<a th:href="@{/candidats/}">Retour à la liste des candidats</a>
+
+	<form th:object="${candidat}" method="post">
+		<div class="mb-3">
+			<label for="nom" class="form-label">Nom</label> 
+			<input type="text" class="form-control" th:field="*{nom}"/>
+			<span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"> Erreur sur le nom </span>
+		</div>
+		<div class="mb-3">
+			<label for="prenom" class="form-label">Prénom</label> 
+			<input type="text" class="form-control" th:field="*{prenom}"/>
+			<span th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"> Erreur sur le prénom </span>
+		</div>
+		<div class="mb-3">
+			<label for="email" class="form-label">Email</label> 
+			<input type="text" th:field="*{email}" />
+			<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"> Erreur sur l' email </span>
+		</div>
+		<div class="mb-3">
+			<label for="username" class="form-label">Username</label> 
+			<input type="text" class="form-control" th:field="*{username}"/>
+			<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"> Erreur sur le username </span>
+		</div>
+		<div class="mb-3">
+			<label for="password" class="form-label">Mot de passe</label>
+			<input type="password" th:field="*{password}" />
+			<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Erreur sur le mot de passe </span>
+		</div>
+		<div class="mb-3">
+			<label for="adresse" class="form-label">Adresse</label> <input
+				type="text" th:field="*{adresse}" /> <span
+				th:if="${#fields.hasErrors('adresse')}" th:errors="*{adresse}">Erreur sur l'adresse </span>
+		</div>
+		<div class="mb-3">
+			<label for="codePostal" class="form-label">Code postal</label> <input
+				type="text" th:field="*{codePostal}" /> <span
+				th:if="${#fields.hasErrors('codePostal')}" th:errors="*{codePostal}">Erreur sur le mot de passe </span>
+		</div>
+		<div class="mb-3">
+			<label for="ville" class="form-label">Ville</label> <input
+				type="text" th:field="*{ville}" /> <span
+				th:if="${#fields.hasErrors('ville')}" th:errors="*{ville}">Erreur sur la ville </span>
+		</div>
+		<div class="mb-3">
+			<label for="dateBirth" class="form-label">Date de naissance</label> <input
+				type="date" th:field="*{dateBirth}" /> <span
+				th:if="${#fields.hasErrors('dateBirth')}" th:errors="*{dateBirth}">Erreur sur la date de naissance </span>
+		</div>
+		<div class="mb-3">
+			<label for="identifiantPe" class="form-label">Identifiant Pôle Emploi</label> <input
+				type="text" th:field="*{identifiantPe}" /> <span
+				th:if="${#fields.hasErrors('identifiantPe')}" th:errors="*{identifiantPe}">Erreur sur l'identifiant </span>
+		</div>
+
+		<input type="hidden"
+				th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}" />
+		<button type="submit" class="btn btn-primary">Enregistrer</button>
+	</form>
+
+</body>
+</html>

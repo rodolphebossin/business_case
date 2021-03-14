@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+</head>
+<body>
+	<h1>Liste des acandidats</h1>
+	
+	<a th:href="@{/candidats/add}">Ajouter un candidat</a>
+
+	<table class="table table-striped table-hover table-sm">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Nom</th>
+				<th scope="col">Prénom</th>
+				<th scope="col">Email</th>
+				<th scope="col">Username</th>
+				<th scope="col">Adresse</th>
+				<th scope="col">Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="admin : ${admins}">
+				<th scope="row" th:utext="${admin.id}"></th>
+				<td th:utext="${admin.nom}"></td>
+				<td th:utext="${admin.prenom}"></td>
+				<td th:utext="${admin.email}"></td>
+				<td th:utext="${admin.username}"></td>
+				<td th:utext="${admin.adresse} + ', ' + ${admin.codePostal} + ' ' + ${admin.ville}" ></td>
+				<td>
+					<a th:href="@{/admins/{id}(id=${admin.id})}">Détail</a>
+					<a th:href="@{/admins/edit/{id}(id=${admin.id})}">Modifier</a>
+					<a th:href="@{/admins/delete/{id}(id=${admin.id})}">Supprimer</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
+

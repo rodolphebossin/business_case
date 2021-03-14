@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Login - HumanBOOSTER Admin</title>
+    <link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid text-center">
+		<div class="row justify-content-center">
+			<div class="col-4">
+				<img class="img-fluid"
+					th:src="@{/images/humanboosterLogoScaled.png}" />
+			</div>
+		</div>
+		<form th:action="@{/login-processing}" method="post" style="max-width: 350px; margin: 0 auto;">
+     
+        <div th:if="${param.error}">
+            <p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+        </div>
+         
+        <div th:if="${param.logout}">
+            <p class="text-warning">Vous avez été correctement déconnecté.</p>
+        </div>
+         
+        <div class="border border-secondary p-3 rounded">
+            <p>Bienvenue sur le site HumanBOOSTER</p>
+            <p>
+                <input type="text" name="username" class="form-control" placeholder="Username" autofocus/>
+            </p>
+            <p>
+                <input type="password" name="password" class="form-control" placeholder="Mot de passe" />
+            </p>
+            <p>
+                <input type="checkbox" name="remember-me" />&nbsp;Se souvenir de moi.
+            </p>
+            <p>
+                <input type="submit" value="Connectez vous" class="btn btn-primary" />
+            </p>
+        </div>
+			
+		</form>      
+</div>
+</body>
+</html>
