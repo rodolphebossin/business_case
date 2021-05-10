@@ -1,7 +1,9 @@
 package com.humanbooster.Business_case_admin.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -13,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -31,21 +34,51 @@ public class TechnicalTest {
     @Column(name = "nom", nullable = false, length=250)
     private String nom;
     
-    @NotNull(message = "Veuillez saisir une durée en secondes")
+    @NotNull(message = "Veuillez saisir une durée en minutes")
     @Column(name="duree", nullable = false)
     private Integer duree;
     
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name="test_question",
     		joinColumns = @JoinColumn(name="technical_test_id"),
     		inverseJoinColumns = @JoinColumn(name="question_id"))
 	private List<Question> questions;
-   
     
-    public TechnicalTest() {
+    @OneToMany(mappedBy = "technicalTest", cascade = CascadeType.ALL)
+	private List<InfoCollective> infocos;
+    
+    @OneToMany(mappedBy = "technicalTest", cascade = CascadeType.ALL)
+    private Set<TestResult> testResults = new HashSet<>();
+
+	public TechnicalTest() {
     	this.questions = new ArrayList<Question>();
+    	this.infocos = new ArrayList<InfoCollective>();
     }
     
+	public Set<TestResult> getTestResults() {
+		return testResults;
+	}
+
+	public void setTestResults(Set<TestResult> testResults) {
+		this.testResults = testResults;
+	}
+
+	public void setInfocos(List<InfoCollective> infocos) {
+		this.infocos = infocos;
+	}
+
+	public List<InfoCollective> getInfocos() {
+		return infocos;
+	}
+	
+	public void addInfoco(InfoCollective infoco) {
+		this.infocos.add(infoco);
+	}
+	
+	public void removeInfoco(InfoCollective infoco) {
+		this.infocos.remove(infoco);
+	}
+
     public void setQuestions(List<Question> questions) {
 		this.questions = questions;
 	}

@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/bootstrap_head :: bootstrap">
+
+</head>
+
+<body>
+	<header>
+		<div th:replace="fragments/candidat_fragments :: nav_candidat"></div>	
+	</header>
+	
+	
+	<div id="global" class="container mb-5">
+			
+		<h1 th:utext="'Bonjour ' + ${candidat.prenom} + ' ' + ${candidat.nom}"></h1>
+		
+		<p> Quand vous le souhaitez, clickez sur le bouton pour commencer le test </p>
+		
+		<a role="button" class="btn btn-outline-success" th:href="@{'/candidats/' + ${candidat.id} + '/' + ${techTest.id} + '/' + ${infoco.id} + '/question/1'}">Commencer le test</a>
+		
+			
+	</div>	
+	
+	<footer th:replace="fragments/candidat_fragments :: footer_candidat"></footer>
+	
+	
+</body>
+</html>
+	

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+<body>
+	<div th:fragment="nav_admin">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		  <div class="container">
+		    <a class="navbar-brand">
+		      <img th:src="@{/images/humanboosterLogoScaled.png}" alt="" width="220" height="auto" class="d-inline-block align-text-top">
+		    </a>
+		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		      <span class="navbar-toggler-icon"></span>
+		    </button>
+		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+		        <li class="nav-item">
+		          <a class="nav-link" th:href="@{/admins/}">Gérer les administrateurs</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" th:href="@{/admins/chefsdeprojet/}">Gérer les chefs de projet</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" th:href="@{/admins/questions/}">Gérer les questions</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" th:href="@{/admins/technicalTests/}">Gérer les tests techniques</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" th:href="@{/logout}">Déconnexion</a>
+		        </li>
+		      </ul>
+		    </div>
+		  </div>
+		</nav>
+	</div>
+	
+	<div th:fragment="footer_admin">
+		<nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark py-3">
+		  <div class="container">
+		    <span class="text-muted">Espace administrateurs</span>
+		  </div>
+		</nav>	
+	</div>
+
+	
+
+
+</body>
+</html>

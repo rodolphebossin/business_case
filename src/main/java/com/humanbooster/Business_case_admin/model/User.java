@@ -41,7 +41,7 @@ public class User {
     
     @Basic
     @NotBlank(message = "Veuillez entrer votre email")
-    @Email(message ="Format d'email incorrect")
+    @Email(message ="Veuillez fournir une adresse email valide")
     @Column(name="email", nullable = false, unique = true)
     private String email;
     

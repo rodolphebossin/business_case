@@ -36,10 +36,10 @@ public class BusinessCaseAdminApplication {
 				storageService.init();
 				
 				if(adminRepository.count() == 0) {
-				String cryptedPassword = passwordEncoder.encode("admin");
-				Admin admin = new Admin("Toto", "toto", "toto@gmail.com", "toto", cryptedPassword);
-	
-				adminRepository.save(admin);}
+					String cryptedPassword = passwordEncoder.encode("admin");
+					Admin admin = new Admin("Toto", "toto", "toto@gmail.com", "toto", cryptedPassword);
+		
+					adminRepository.save(admin);}
 				
 				if(chefDeProjetRepository.count() == 0) {
 					String cryptedPassword = passwordEncoder.encode("tata");

@@ -83,6 +83,11 @@ public class Media {
 	public Integer getId() {
 		return id;
 	}
+
+	@Override
+	public String toString() {
+		return "Media [fileName=" + fileName + ", mediaType=" + mediaType + "]";
+	}
 	
 	
 

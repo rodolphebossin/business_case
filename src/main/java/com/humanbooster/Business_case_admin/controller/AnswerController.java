@@ -57,7 +57,7 @@ public class AnswerController {
 	}
 	
 	@RequestMapping(value = "/add/{question}", method = RequestMethod.POST)
-	public String saveAnswer(@PathVariable(name="question", required = false) Question question, @Valid Answer answer, Media media, BindingResult bindingResult,
+	public String saveAnswer(@PathVariable(name="question", required = false) Question question, @Valid Answer answer, BindingResult bindingResult, Media media,
 			HttpServletRequest request, @RequestParam MultipartFile file) {
 		if (answer == null) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Réponse non trouvée");
@@ -76,7 +76,7 @@ public class AnswerController {
 				media.setAnswer(answer);
 				answer.setMedia(media);
 			}
-
+			question.addAnswer(answer);
 			this.answerService.saveOrUpdateAnswer(answer);
 			return "redirect:/admins/answers/{question}";
 		}
@@ -94,7 +94,7 @@ public class AnswerController {
 	}
 	
 	@RequestMapping(value="/edit/{answer}", method = RequestMethod.POST)
-	public String editQuestion(@Valid Answer answer, Media media, BindingResult bindingResult, HttpServletRequest request, @RequestParam MultipartFile file) 
+	public String editQuestion(@Valid Answer answer, BindingResult bindingResult, Media media, Question question, HttpServletRequest request, @RequestParam MultipartFile file) 
 		{ 
 			if(answer == null) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Réponse non trouvée");
@@ -117,8 +117,8 @@ public class AnswerController {
 				}
 
 				this.answerService.saveOrUpdateAnswer(answer);
-				int question = answer.getQuestion().getId();
-				String url = "redirect:/admins/answers/" + question;
+				int questionId = answer.getQuestion().getId();
+				String url = "redirect:/admins/answers/" + questionId;
 				return url;
 			}
 		}

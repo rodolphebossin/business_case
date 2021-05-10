@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/bootstrap_head :: bootstrap">
+<link href="jquery.datetimerpicker.min.css" rel="stylesheet"/>
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/chefDePro_fragments :: nav_chefDePro"></div>	
+	</header>
+
+	<div id="global" class="container mb-5">
+	
+		<div class="my-4">
+			<h2 th:if="${infoco.id != null}" th:utext="'Entretien du candidat ' + ${candidat.prenom} + ' ' + ${candidat.nom} + ' pour l\'infoco ' + ${infoco.name}"></h2>
+		</div>		
+
+		<div class="row justify-content-start">
+   			 <div class="col-8 pb-5">
+				<form th:object="${interview}" method="post">
+					<div class="mb-3">
+							<label for="picker" class="form-label">Date et heure</label> 
+							<input type="datetime-local" class="form-control" th:field="*{dateTimeInterview}" id="picker"/> 
+							<span th:if="${#fields.hasErrors('dateTimeInterview')}" th:errors="*{dateTimeInterview}">Erreur sur la date </span>
+					</div>
+					<input type="hidden" th:value="${infoco.id}" th:field="*{infocoId}" />
+					<input type="hidden" th:value="${interview.id}" th:field="*{id}" />
+					<input type="hidden"
+							th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}" />
+					<button type="submit" class="btn btn-dark">Enregistrer</button>
+				</form>
+			</div>
+		</div>
+
+
+	</div>
+	
+	<footer th:replace="fragments/chefDePro_fragments :: footer_chefDePro"></footer>	
+	
+
+
+</body>
+</html>

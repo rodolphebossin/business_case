@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/bootstrap_head :: bootstrap">
+
+</head>
+
+<body>
+	<header>
+		<div th:replace="fragments/chefDePro_fragments :: nav_chefDePro"></div>	
+	</header>
+	
+	
+	<div id="global" class="container">
+			
+		<h1 th:utext="'Rebonjour ' + ${chefDeProjet.prenom} + ' ' + ${chefDeProjet.nom}"></h1>
+			
+	</div>	
+	
+	<footer th:replace="fragments/chefDePro_fragments :: footer_chefDePro"></footer>
+	
+	
+</body>
+</html>
+	

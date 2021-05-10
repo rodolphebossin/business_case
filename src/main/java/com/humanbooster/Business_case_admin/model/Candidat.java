@@ -1,11 +1,18 @@
 package com.humanbooster.Business_case_admin.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
@@ -50,7 +57,19 @@ public class Candidat extends User{
     @Column(name = "ville", nullable = true, length=250)
     private String ville;
     
+    @ManyToMany(mappedBy = "candidats")
+	private List<InfoCollective> infocos;
+    
+    @OneToMany(mappedBy = "candidat")
+    private Set<TestResult> testResults = new HashSet<>();
+    
+	@OneToMany(mappedBy = "candidat", cascade = CascadeType.ALL)
+	private List<Interview> interviews;
+    
+    
 	public Candidat() {
+		this.infocos = new ArrayList<>();
+		this.interviews =  new ArrayList<Interview>();
 	}
 
 	public Candidat(String nom, String prenom, String email, String username, String password, Date dateBirth, String identifiantPe, String adresse, String codePostal, String ville) {
@@ -60,6 +79,38 @@ public class Candidat extends User{
 		this.adresse = adresse;
 		this.codePostal = codePostal;
 		this.ville = ville;
+	}
+	
+	public void addInterview(Interview interview) {
+		this.interviews.add(interview);
+	}
+	
+	public void removeAnswer(Interview interview) {
+		this.interviews.remove(interview);
+	}
+
+	public List<Interview> getInterviews() {
+		return interviews;
+	}
+
+	public void setInterviews(List<Interview> interviews) {
+		this.interviews = interviews;
+	}
+
+	public Set<TestResult> getTestResults() {
+		return testResults;
+	}
+
+	public void setTestResults(Set<TestResult> testResults) {
+		this.testResults = testResults;
+	}
+
+	public List<InfoCollective> getInfocos() {
+		return infocos;
+	}
+
+	public void setInfocos(List<InfoCollective> infocos) {
+		this.infocos = infocos;
 	}
 
 	public String getAdresse() {

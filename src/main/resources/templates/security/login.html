@@ -37,7 +37,10 @@
                 <input type="password" name="password" class="form-control" placeholder="Mot de passe" />
             </p>
             <p>
-                <input type="checkbox" name="remember-me" />&nbsp;Se souvenir de moi.
+                <input th:if="${param.infoco != null}" type="text" name="infoco" th:value="${param.infoco}" style="display:none"/>
+            </p>
+            <p>
+                <input th:if="${param.techTest != null}" type="text" name="techTest" th:value="${param.techTest}" style="display:none"/>
             </p>
             <p>
                 <input type="submit" value="Connectez vous" class="btn btn-primary" />

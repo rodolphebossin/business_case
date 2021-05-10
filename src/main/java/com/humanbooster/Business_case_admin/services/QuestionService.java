@@ -32,7 +32,8 @@ public class QuestionService {
 	    	     Sort.by(sortField).descending();
 	    	
 	    	Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
-	    	return this.questionRepository.findAll(pageable);}
+	    	return this.questionRepository.findAll(pageable);
+	}
 
 
 }

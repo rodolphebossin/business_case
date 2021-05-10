@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/bootstrap_head :: bootstrap">
+
+</head>
+
+<body>
+	<header>
+		<div th:replace="fragments/candidat_fragments :: nav_candidat"></div>	
+	</header>
+	
+	
+	<div id="global" class="container mb-5">
+			
+		<h1 th:utext="'Rebonjour ' + ${candidat.prenom} + ' ' + ${candidat.nom}"></h1>
+		
+		<p> Voici votre score au test : </p>
+		
+		<p th:text="'Vous avez répondu correctement à ' + ${bonnesReponses} + ' sur ' + ${techTest.questions.size()} + ' questions.'"></p>
+		
+		<p th:if="${eliminatoire}">Malheureusement, vous avez mal répondu à une question éliminatoire...</p>
+		
+			
+	</div>	
+	
+	<footer th:replace="fragments/candidat_fragments :: footer_candidat"></footer>
+	
+	
+</body>
+</html>
+	

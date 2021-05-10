@@ -63,7 +63,7 @@ public class ChefDeProjetController {
 			return "chefDeProjet/chefDeProjet-form";
 		} else {
 			this.chefDeProjetService.saveOrUpdateChefDeProjet(chefDeProjet);
-			return "redirect:/admins/chefsdeprojet";
+			return "redirect:/admins/chefsdeprojet/";
 		}
 	}
 	

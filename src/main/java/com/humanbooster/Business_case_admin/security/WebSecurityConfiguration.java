@@ -32,7 +32,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 					"/js/**",
 					"/css/**",
 					"/images/**",
-					"/webjars/**").permitAll()
+					"/webjars/**",
+					"/login**").permitAll()
 			.antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 			.antMatchers("/candidat/**").hasAuthority("ROLE_CANDIDAT")
 			.antMatchers("/chefDeProjet/**").hasAuthority("ROLE_CHEFDEPROJET")

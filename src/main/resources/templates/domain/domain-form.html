@@ -1,31 +1,37 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-	crossorigin="anonymous">
+<head th:replace="fragments/bootstrap_head :: bootstrap">
 </head>
 <body>
 
-<h1 th:if="${domain.id == null}" th:utext="'Ajouter un domaine'"></h1>
-<h1 th:if="${domain.id != null}" th:utext="Editer le domaine"></h1>
-
-<a th:href="@{/admins/questions/domains/}">Retour à la liste des domaines</a>
-<a th:href="@{/admins/questions/}">Retour à la liste des questions</a>
-
-	<form th:object="${domain}" method="post">
-		<div class="mb-3">
-			<label for="domain" class="form-label">Domaine</label> 
-			<input type="text" class="form-control" th:field="*{domain}"/>
-			<span th:if="${#fields.hasErrors('domain')}" th:errors="*{domain}"> Erreur sur le domaine </span>
+	<header>
+		<div th:replace="fragments/admin_fragments :: nav_admin"></div>	
+	</header>
+	
+	<div id="global" class="container">
+		
+		<div class="my-4">
+			<h2 th:if="${domain.id == null}" th:utext="'Ajouter un domaine'"></h2>
+			<h2 th:if="${domain.id != null}" th:utext="'Editer le domaine' + ${domain.domain}"></h2>
 		</div>
-		<input type="hidden"
-				th:name="${_csrf.parameterName}"
-				th:value="${_csrf.token}" />
-		<button type="submit" class="btn btn-primary">Enregistrer</button>
-	</form>
+		
+		<div class="row justify-content-start">
+   			 <div class="col-8 pb-5">
+				<form th:object="${domain}" method="post">
+					<div class="mb-3">
+						<label for="domain" class="form-label">Domaine</label> 
+						<input type="text" class="form-control" th:field="*{domain}"/>
+						<span th:if="${#fields.hasErrors('domain')}" th:errors="*{domain}"> Erreur sur le domaine </span>
+					</div>
+					<input type="hidden"
+							th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}" />
+					<button type="submit" class="btn btn-primary">Enregistrer</button>
+				</form>	
+			</div>
+		</div>
+	
+	</div>	
 
 </body>
 </html>

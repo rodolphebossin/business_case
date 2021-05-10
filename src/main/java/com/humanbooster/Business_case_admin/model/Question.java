@@ -82,7 +82,7 @@ public class Question {
 		this.answers.add(answer);
 	}
 	
-	public void removeQuestion(Answer answer) {
+	public void removeAnswer(Answer answer) {
 		this.answers.remove(answer);
 	}
 

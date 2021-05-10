@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +24,8 @@ import com.humanbooster.Business_case_admin.services.CandidatService;
 
 
 @Controller
-@RequestMapping(path= "/candidats")
+@CrossOrigin("http://localhost:8080")
+@RequestMapping(path= "/chefsDeProjet/candidats")
 public class CandidatController {
 	
 
@@ -105,7 +107,7 @@ public class CandidatController {
 			String cryptedPassword = passwordEncoder.encode(candidat.getPassword());
 			candidat.setPassword(cryptedPassword);
 			this.candidatService.saveOrUpdateCandidat(candidat);
-			return "redirect:/candidats/";
+			return "redirect:/chefsDeProjet/candidats/";
 		}
 	}
 	
@@ -127,7 +129,7 @@ public class CandidatController {
 			return "candidat/candidat-form";
 		} else {
 			this.candidatService.saveOrUpdateCandidat(candidat);
-			return "redirect:/candidats/";
+			return "redirect:/chefsDeProjet/candidats/";
 		}
 	}
 	
@@ -138,7 +140,7 @@ public class CandidatController {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidat non trouvé");
 		} else {
 			this.candidatService.deleteCandidat(candidat);
-			return "redirect:/candidats/";
+			return "redirect:/chefsDeProjet/candidats/";
 		}
 	}
 
