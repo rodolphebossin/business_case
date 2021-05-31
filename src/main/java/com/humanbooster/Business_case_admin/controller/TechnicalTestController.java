@@ -1,6 +1,7 @@
 package com.humanbooster.Business_case_admin.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.humanbooster.Business_case_admin.model.Question;
 import com.humanbooster.Business_case_admin.model.TechnicalTest;
+import com.humanbooster.Business_case_admin.model.TestQuestion;
 import com.humanbooster.Business_case_admin.services.QuestionService;
 import com.humanbooster.Business_case_admin.services.TechnicalTestService;
 
@@ -43,14 +45,30 @@ public class TechnicalTestController {
 		return mv;
 	}
 	
+	// Vue du test format list
+	
+	/*
+	 * @RequestMapping(value="/{test}", method = RequestMethod.GET) public
+	 * ModelAndView testDetails(@PathVariable(name = "test", required = false)
+	 * TechnicalTest technicalTest) { if(technicalTest == null) { throw new
+	 * ResponseStatusException(HttpStatus.NOT_FOUND, "Test non trouvé"); }
+	 * ModelAndView mv = new ModelAndView("techTest/techTest-detail");
+	 * mv.addObject("test", technicalTest); List<Question> questions =
+	 * technicalTest.getQuestions(); mv.addObject("questions", questions); return
+	 * mv; }
+	 */
+	
+	
+	// vue du test format questionnaire
+	
 	@RequestMapping(value="/{test}", method = RequestMethod.GET)
 	public ModelAndView testDetails(@PathVariable(name = "test", required = false) TechnicalTest technicalTest) {
 		if(technicalTest == null) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Test non trouvé");
 		}
-		ModelAndView mv = new ModelAndView("techTest/techTest-detail");
+		ModelAndView mv = new ModelAndView("techTest/techTest-overview");
 		mv.addObject("test", technicalTest);
-		List<Question> questions = technicalTest.getQuestions();
+		Set<TestQuestion> questions = technicalTest.getTestQuestions();
 		mv.addObject("questions", questions);
 		return mv;
 	}
@@ -126,6 +144,7 @@ public class TechnicalTestController {
 		
 		Page<Question> page = questionService.getPaginatedQuestions(pageNo, pageSize, sortField, sortDir);
 		List<Question> questions = page.getContent();
+		
 		
 		model.addAttribute("currentPage", pageNo);
 	    model.addAttribute("nbTotalPages", page.getTotalPages());

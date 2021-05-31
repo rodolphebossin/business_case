@@ -41,7 +41,8 @@
 					<th scope="col">
 						<a class="text-decoration-none text-reset" th:href="@{'/admins/technicalTests/' + ${addOrEdit} + '/questions/' + ${test.id} + '/page/' + ${currentPage} + '?sortField=isEliminatory&sortDir=' + ${reverseSortDir}}"><i class="fas fa-sort"></i> Eliminatoire ?</a>
 					</th>
-						<th scope="col">Sélection</th>
+					<th scope="col">Sélection</th>
+					<th scope="col">N° question</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -55,7 +56,11 @@
 						<td th:if="${question.isEliminatory == true}" th:utext="Oui"></td>
 						<td th:if="${question.isEliminatory != true}" th:utext="Non"></td>
 						<td>
-	        				<input type="checkbox" th:value="${question.id}" th:field="${test.questions}"/>
+	        				<input type="checkbox" th:value="${question.id}" th:field="${testQuestion.question}"/>
+						</td>
+						<td>
+	        				<input type="number" th:value="${displayId}" th:field="${testQuestion.DisplayId}"/>
+<!-- 	        				<span th:if="${#fields.hasErrors('displayId')}" th:errors="*{testQuestion.displayId}"> Le numéro de question doit être unique </span> -->
 						</td>
 					</tr>
 				</tbody>

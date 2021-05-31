@@ -39,7 +39,12 @@
 					<td th:utext="${infoco.name}"></td>
 					<td th:utext="${infoco.date}"></td>
 					<td th:utext="${infoco.lieu}"></td>
-					<td th:utext="${infoco.technicalTest.nom}"></td>
+					<td >
+						<div>
+							<span th:utext="${infoco.technicalTest.nom}"></span>
+							<a role="button" class="btn btn-outline-success btn-sm" th:href="@{'/admins/chefsdeprojet/word?techTest='+ ${infoco.technicalTest.id}}">Word</a>
+						</div>		
+					</td>
 					<td th:utext="${infoco.chefDeProjet}"></td>
 					<td>
 						<div class="btn-group btn-group-sm" role="group">
@@ -48,8 +53,7 @@
 							<a role="button" class="btn btn-outline-dark" th:href="@{/chefsDeProjet/infocos/show/candidats/{id}(id=${infoco.id})}">Afficher les candidats</a>
 							<a role="button" class="btn btn-outline-success" th:href="@{/chefsDeProjet/infocos/sendEmails/{id}(id=${infoco.id})}">Envoyer confirmation</a>
 							<a role="button" class="btn btn-outline-danger" th:href="@{/chefsDeProjet/infocos/delete/{id}(id=${infoco.id})}">Supprimer</a>
-						</div>
-						
+						</div>					
 					</td>
 				</tr>
 			</tbody>

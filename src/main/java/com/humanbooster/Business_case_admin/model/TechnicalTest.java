@@ -8,13 +8,10 @@ import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.JoinColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -38,11 +35,17 @@ public class TechnicalTest {
     @Column(name="duree", nullable = false)
     private Integer duree;
     
-    @ManyToMany
-    @JoinTable(name="test_question",
-    		joinColumns = @JoinColumn(name="technical_test_id"),
-    		inverseJoinColumns = @JoinColumn(name="question_id"))
-	private List<Question> questions;
+	/*
+	 * @ManyToMany
+	 * 
+	 * @JoinTable(name="test_question", joinColumns
+	 * = @JoinColumn(name="technical_test_id"), inverseJoinColumns
+	 * = @JoinColumn(name="question_id")) private List<Question> questions;
+	 */
+    
+    @OneToMany(mappedBy = "technicalTest", cascade = CascadeType.ALL)
+    private Set<TestQuestion> testQuestions;
+    
     
     @OneToMany(mappedBy = "technicalTest", cascade = CascadeType.ALL)
 	private List<InfoCollective> infocos;
@@ -51,9 +54,17 @@ public class TechnicalTest {
     private Set<TestResult> testResults = new HashSet<>();
 
 	public TechnicalTest() {
-    	this.questions = new ArrayList<Question>();
     	this.infocos = new ArrayList<InfoCollective>();
+    	this.testQuestions = new HashSet<TestQuestion>();
     }
+	
+	public Set<TestQuestion> getTestQuestions() {
+		return testQuestions;
+	}
+
+	public void setTestQuestions(Set<TestQuestion> testQuestions) {
+		this.testQuestions = testQuestions;
+	}
     
 	public Set<TestResult> getTestResults() {
 		return testResults;
@@ -79,23 +90,18 @@ public class TechnicalTest {
 		this.infocos.remove(infoco);
 	}
 
-    public void setQuestions(List<Question> questions) {
-		this.questions = questions;
-	}
-
-	public void addQuestion(Question question) {
-		questions.add(question);
-		question.getTechnicalTests().add(this);
-	}
-	
-	public void removeQuestion(Question question) {
-		questions.remove(question);
-		question.getTechnicalTests().remove(this);
-	}
-	
-	public List<Question> getQuestions(){
-		return this.questions;
-	}
+	/*
+	 * public void setQuestions(List<Question> questions) { this.questions =
+	 * questions; }
+	 * 
+	 * public void addQuestion(Question question) { questions.add(question);
+	 * question.getTechnicalTests().add(this); }
+	 * 
+	 * public void removeQuestion(Question question) { questions.remove(question);
+	 * question.getTechnicalTests().remove(this); }
+	 * 
+	 * public List<Question> getQuestions(){ return this.questions; }
+	 */
 
 	public Integer getId() {
 		return id;

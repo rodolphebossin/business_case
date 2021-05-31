@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/bootstrap_head :: bootstrap">
+
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/admin_fragments :: nav_admin"></div>	
+	</header>
+	
+	<div id="global" class="container">
+	
+		<div class="mt-3 text-center">
+			<h2 class="bg-dark text-light" th:utext="'Test n° ' + ${test.id}"></h2>
+		</div>	
+		
+		<a class="btn btn-warning float-end" th:href="@{/admins/technicalTests/}">Retour à la liste des tests</a>
+				<h4>nom : <span class="fw-lighter" th:utext="${test.nom}"></span></h4>
+				<h4>durée : <span class="fw-lighter" th:utext="${test.duree} + 'mn'"></span></h4>
+	
+		
+		<div class="row justify-content-center mb-5" th:each="question, iter : ${questions}">
+			<div class="col-6">
+			
+				<h4 class="text-bold" th:utext="'Question n° ' + ${iter.index+1}"></h4>
+				<div class="pb-3">
+					<span class="badge bg-dark me-2 align-middle" th:utext="'Domaine : '"></span><span class="me-3 align-middle" th:utext="${question.questionDomain.domain}"></span>
+					<span class="badge bg-dark me-2 align-middle" th:utext="'Niveau : '"></span><span class="me-3 align-middle" th:utext="${question.level}"></span>
+					<span th:class="${question.isEliminatory == true ? 'badge align-middle bg-danger ' : 'badge align-middle bg-secondary'}" th:utext="${question.isEliminatory == true ? 'question éliminatoire' : 'question non éliminatoire'}"></span>
+				</div>
+				<div class="card bg-light shadow">
+					<div class="card-body">
+						<p class="card-text" th:utext="${question.text}">Question text</p>
+						<div class="card-img-top ps-4" th:if="${question.media != null}">
+							<img th:if="${question.media.mediaType == 'image'}" th:src="@{${'/uploads/' + question.media.fileName}}" class="img-fluid rounded" width="200px"/>
+							<video th:if="${question.media.mediaType == 'video'}" th:src="@{${'/uploads/' + question.media.fileName}}" width="200px" height="200px" controls></video> 
+						</div>
+					</div>
+				</div>
+				
+				<h5 class="mt-3">Réponses</h5>
+				<div class="pb-3">
+					<ul th:each="answer : ${question.answers}">
+						<li> 
+						<span class="me-2" th:utext="${answer.text}"></span>
+						<span th:utext="${answer.isCorrectAnswer == true ? 'vrai' : 'faux'}" th:class="${answer.isCorrectAnswer == true ? 'badge align-middle bg-success' : 'badge align-middle bg-secondary'}"></span>
+							<div class="media mt-2 ps-4" th:if="${answer.media != null}">
+								<img th:if="${answer.media.mediaType == 'image'}" th:src="@{${'/uploads/' + answer.media.fileName}}" class="img-fluid rounded" width="200px"/>
+								<video th:if="${answer.media.mediaType == 'video'}" th:src="@{${'/uploads/' + answer.media.fileName}}" width="400px" height="auto" controls></video> 
+							</div>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+		
+	</div>	
+	
+	<footer th:replace="fragments/admin_fragments :: footer_admin"></footer>
+
+</body>
+</html>

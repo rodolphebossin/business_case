@@ -22,6 +22,7 @@ import com.humanbooster.Business_case_admin.model.Question;
 import com.humanbooster.Business_case_admin.model.TechnicalTest;
 import com.humanbooster.Business_case_admin.model.TestResult;
 import com.humanbooster.Business_case_admin.services.ResultService;
+import com.humanbooster.Business_case_admin.services.TestQuestionService;
 import com.humanbooster.Business_case_admin.services.TestResultService;
 import com.humanbooster.Business_case_admin.services.UserService;
 
@@ -39,6 +40,9 @@ public class SimpleCandidatController {
 	
 	@Autowired
 	private ResultService resultService;
+	
+	@Autowired
+	private TestQuestionService testQuestionService;
 	
 	
 	@RequestMapping(value="/{techTest}/{infoco}", method= RequestMethod.GET)
@@ -59,7 +63,6 @@ public class SimpleCandidatController {
 			@PathVariable (name= "candidat", required =false) Candidat candidat,
 			@PathVariable (name = "infoco", required = false) InfoCollective infoco, Model model) {
 
-		System.out.println(techTest.getQuestions().size());
 		return showTestQuestions(techTest, candidat, infoco, 1, model);		  	 
 	}
 	
@@ -80,7 +83,8 @@ public class SimpleCandidatController {
 		  testResult.setTechnicalTest(techTest);
 		  testResult.setInfocoId(infoco.getId());
 
-		  List<Question> questions = techTest.getQuestions();
+		  List<Question> questions = this.testQuestionService.getQuestionsByTechTest(techTest);
+		  
 		  Question question = questions.get(questionNo - 1);
 		  model.addAttribute("question", question);
 		  testResult.setQuestionId(question.getId());
@@ -101,7 +105,7 @@ public class SimpleCandidatController {
 			  String url = null;
 			testResult.setTechnicalTest(techTest);
 			this.testResultService.saveOrUpdateTestResult(testResult);		
-			if( questionNo == techTest.getQuestions().size()) {
+			if( questionNo == this.testQuestionService.getQuestionsByTechTest(techTest).size()) {
 				url = "redirect:/candidats/" + candidat.getId() + "/" + techTest.getId() + "/" + infoco.getId() + "/" + testResult.getId() + "/resultats";
 			} else {
 				questionNo = questionNo + 1;
@@ -122,7 +126,7 @@ public class SimpleCandidatController {
 		  mv.addObject("questionNo", questionNo);
 		  mv.addObject("infoco", infoco);
 
-		  List<Question> questions = techTest.getQuestions();
+		  List<Question> questions = this.testQuestionService.getQuestionsByTechTest(techTest);
 		  Question question = questions.get(questionNo - 1);
 		  
 		  TestResult testResult = this.testResultService.getTestResultByInfocoIdAndCandidatAndTechnicalTestAndQuestionId(infoco.getId(), candidat, techTest, question.getId());

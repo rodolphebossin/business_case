@@ -171,7 +171,7 @@ public class QuestionController {
 		if(question == null) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Question non trouvée");
 		} else {
-			if(!question.getTechnicalTests().isEmpty()) {
+			if(!question.getTestQuestions().isEmpty()) {
 				alert.addFlashAttribute("error", "impossible de supprimer la question, elle est utilisée dans un ou plusieurs test(s) ");
 				return "redirect:/admins/questions/";
 			} else {
