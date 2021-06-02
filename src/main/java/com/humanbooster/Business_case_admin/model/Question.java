@@ -49,10 +49,10 @@ public class Question {
 	@JoinColumn(name="question_domain_id", referencedColumnName = "id")
 	private QuestionDomain questionDomain;
 	
-	/*
-	 * @ManyToMany(mappedBy = "questions") private List<TechnicalTest>
-	 * technicalTests;
-	 */
+	
+	  @ManyToMany(mappedBy = "questions") private List<TechnicalTest>
+	  technicalTests;
+	 
 	
 	@Enumerated(EnumType.STRING)
     private Level level;
@@ -60,29 +60,21 @@ public class Question {
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
 	private List<Answer> answers;
 	
-    @OneToMany(mappedBy = "question")
-    private Set<TestQuestion> testQuestions = new HashSet<>();
 
     
     public Question() {
     	this.answers =  new ArrayList<Answer>();
-//    	this.technicalTests = new ArrayList<TechnicalTest>();
+    	this.technicalTests = new ArrayList<TechnicalTest>();
     }
     
-	public Set<TestQuestion> getTestQuestions() {
-		return testQuestions;
-	}
 
-	public void setTestQuestions(Set<TestQuestion> testQuestions) {
-		this.testQuestions = testQuestions;
-	}
 
-	/*
-	 * public List<TechnicalTest> getTechnicalTests() { return technicalTests; }
-	 * 
-	 * public void setTechnicalTests(List<TechnicalTest> technicalTests) {
-	 * this.technicalTests = technicalTests; }
-	 */
+	
+	  public List<TechnicalTest> getTechnicalTests() { return technicalTests; }
+	  
+	  public void setTechnicalTests(List<TechnicalTest> technicalTests) {
+	  this.technicalTests = technicalTests; }
+	 
 
 	public void setAnswers(List<Answer> answers) {
 		this.answers = answers;

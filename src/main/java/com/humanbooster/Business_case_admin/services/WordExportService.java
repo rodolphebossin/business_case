@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
@@ -19,7 +18,6 @@ import com.humanbooster.Business_case_admin.model.Answer;
 import com.humanbooster.Business_case_admin.model.Media;
 import com.humanbooster.Business_case_admin.model.Question;
 import com.humanbooster.Business_case_admin.model.TechnicalTest;
-import com.humanbooster.Business_case_admin.model.TestQuestion;
 
 @Service
 public class WordExportService {
@@ -30,7 +28,7 @@ public class WordExportService {
 		
 		XWPFDocument document = new XWPFDocument();
 		
-		Set<TestQuestion> testQuestions = techTest.getTestQuestions();
+		List<Question> testQuestions = techTest.getQuestions();
 		
 		XWPFParagraph TechTextName = document.createParagraph();
 		TechTextName.setAlignment(ParagraphAlignment.BOTH.CENTER);
@@ -45,9 +43,7 @@ public class WordExportService {
 		
 		int i = 1;
 		
-		for(TestQuestion tq : testQuestions) {
-			
-			Question q = tq.getQuestion();
+		for(Question q : testQuestions) {
 			
 			XWPFParagraph questionNo = document.createParagraph();
 			questionNo.setAlignment(ParagraphAlignment.BOTH.LEFT);
@@ -113,6 +109,8 @@ public class WordExportService {
 				answerTextRun.setColor("000000");
 				answerTextRun.setFontSize(12);
 				
+				/*
+				
 				if(a.getMedia() != null) {
 					Media media = a.getMedia();
 					if(Objects.equals(media.getMediaType(), "video")) {
@@ -141,7 +139,9 @@ public class WordExportService {
 							e.printStackTrace();
 						} 
 					}
-				}			
+				}	
+				
+				*/
 			}
 		
 			

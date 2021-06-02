@@ -106,7 +106,7 @@ public class ChefDeProjetController {
 	@RequestMapping(value="/delete/{chefDeProjet}", method = RequestMethod.GET)
 	public String deleteChefDeProjet(@PathVariable(name="chefDeProjet", required = false) ChefDeProjet chefDeProjet) {
 		if(chefDeProjet == null) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Chjef de projet non trouvé");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Chef de projet non trouvé");
 		} else {
 			this.chefDeProjetService.deleteChefDeProjet(chefDeProjet);
 			return "redirect:/admins/chefsdeprojet";

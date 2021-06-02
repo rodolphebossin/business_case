@@ -22,7 +22,6 @@ import com.humanbooster.Business_case_admin.model.Question;
 import com.humanbooster.Business_case_admin.model.TechnicalTest;
 import com.humanbooster.Business_case_admin.model.TestResult;
 import com.humanbooster.Business_case_admin.services.ResultService;
-import com.humanbooster.Business_case_admin.services.TestQuestionService;
 import com.humanbooster.Business_case_admin.services.TestResultService;
 import com.humanbooster.Business_case_admin.services.UserService;
 
@@ -40,9 +39,6 @@ public class SimpleCandidatController {
 	
 	@Autowired
 	private ResultService resultService;
-	
-	@Autowired
-	private TestQuestionService testQuestionService;
 	
 	
 	@RequestMapping(value="/{techTest}/{infoco}", method= RequestMethod.GET)
@@ -83,7 +79,7 @@ public class SimpleCandidatController {
 		  testResult.setTechnicalTest(techTest);
 		  testResult.setInfocoId(infoco.getId());
 
-		  List<Question> questions = this.testQuestionService.getQuestionsByTechTest(techTest);
+		  List<Question> questions = techTest.getQuestions();
 		  
 		  Question question = questions.get(questionNo - 1);
 		  model.addAttribute("question", question);
@@ -104,8 +100,7 @@ public class SimpleCandidatController {
 		  } else {
 			  String url = null;
 			testResult.setTechnicalTest(techTest);
-			this.testResultService.saveOrUpdateTestResult(testResult);		
-			if( questionNo == this.testQuestionService.getQuestionsByTechTest(techTest).size()) {
+			if( questionNo == techTest.getQuestions().size()) {
 				url = "redirect:/candidats/" + candidat.getId() + "/" + techTest.getId() + "/" + infoco.getId() + "/" + testResult.getId() + "/resultats";
 			} else {
 				questionNo = questionNo + 1;
@@ -126,7 +121,7 @@ public class SimpleCandidatController {
 		  mv.addObject("questionNo", questionNo);
 		  mv.addObject("infoco", infoco);
 
-		  List<Question> questions = this.testQuestionService.getQuestionsByTechTest(techTest);
+		  List<Question> questions = techTest.getQuestions();
 		  Question question = questions.get(questionNo - 1);
 		  
 		  TestResult testResult = this.testResultService.getTestResultByInfocoIdAndCandidatAndTechnicalTestAndQuestionId(infoco.getId(), candidat, techTest, question.getId());

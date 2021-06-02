@@ -22,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.humanbooster.Business_case_admin.model.Question;
 import com.humanbooster.Business_case_admin.model.TechnicalTest;
-import com.humanbooster.Business_case_admin.model.TestQuestion;
 import com.humanbooster.Business_case_admin.services.QuestionService;
 import com.humanbooster.Business_case_admin.services.TechnicalTestService;
 
@@ -68,7 +67,7 @@ public class TechnicalTestController {
 		}
 		ModelAndView mv = new ModelAndView("techTest/techTest-overview");
 		mv.addObject("test", technicalTest);
-		Set<TestQuestion> questions = technicalTest.getTestQuestions();
+		List<Question> questions = technicalTest.getQuestions();
 		mv.addObject("questions", questions);
 		return mv;
 	}
